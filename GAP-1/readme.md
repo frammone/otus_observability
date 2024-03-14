@@ -19,9 +19,9 @@ docker run --rm -p 172.17.0.1:9113:9113 -d nginx/nginx-prometheus-exporter:1.1.0
 docker run -d --rm  -p 172.17.0.1:9115:9115/tcp --name blackbox_exporter -v $(pwd):/config  quay.io/prometheus/blackbox-exporter:latest --config.file=/config/blackbox.yml
 ```
 4) Сконфигурировал прометей на сбор метрик со всех экспортеров
-![alt text](prometheus.yml)
+![Код prometheus.yml](prometheus.yml)
 
-5) Скриншоты:
+1) Скриншоты:
 
 Таргеты прометея:
 ![alt text](img/prom_targets.png)
