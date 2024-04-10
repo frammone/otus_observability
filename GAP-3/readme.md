@@ -44,6 +44,59 @@ receivers:
         message: '{{ template "telegram.default.message.text" . }}'
 ```
 
+/etc/prometheus/alert.rules.yml
+
+```yaml
+groups:
+- name: alert.rules
+  rules:
+  - alert: Instance Down!
+    expr: up == 0
+    for: 1m
+    labels:
+      severity: critical
+    annotations:
+      description: '{{ $labels.instance }} of job {{ $labels.job }} has been down
+        for more than 1 minute.'
+      summary: Instance {{ $labels.instance }} down
+  - alert: Сервис nginx не работает!
+    expr: nginx_up == 0
+    for: 1m
+    labels:
+      severity: critical
+    annotations:
+      description: '{{ $labels.instance }} of job {{ $labels.job }} has been down
+        for more than 1 minute.'
+      summary: Instance {{ $labels.instance }} down
+  - alert: Сервис MariaDB не работает!
+    expr: mysql_up == 0
+    for: 1m
+    labels:
+      severity: critical
+    annotations:
+      description: '{{ $labels.instance }} of job {{ $labels.job }} has been down
+        for more than 1 minute.'
+      summary: Instance {{ $labels.instance }} down
+  - alert: Nginx Exporter не работает!
+    expr: up{job="nginx"} == 0
+    for: 1m
+    labels:
+      severity: warning
+    annotations:
+      description: '{{ $labels.instance }} of job {{ $labels.job }} has been down
+        for more than 1 minute.'
+      summary: Instance {{ $labels.instance }} down
+  - alert: MariaDB Exporter не работает!
+    expr: up{job="mariadb"} == 0
+    for: 1m
+    labels:
+      severity: warning
+    annotations:
+      description: '{{ $labels.instance }} of job {{ $labels.job }} has been down
+        for more than 1 minute.'
+      summary: Instance {{ $labels.instance }} down
+```
+
 /etc/prometheus/prometheus.yml
 
 ```yaml
